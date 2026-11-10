@@ -84,6 +84,11 @@ The test writes a 1 GiB device inside a 512 MiB guest. The test harness is shiel
 
 With `__GFP_NORETRY` the allocation fails after one reclaim attempt, and the write fails instead of the machine.
 
+**Reproduced on the CI runner**, with the non-debug `x86-perf` kernel and a 512 MiB guest:
+- nano_blk: EIO after **345 MiB**, **0 OOM kills**.
+- brd: `dd` **killed by the OOM killer** (exit 137), with 2 OOM kills (`dd`, then a bystander).
+- That guest didn't reach the panic because one bystander was still left to kill.
+
 **Remaining limit:** the device keeps what it allocated, and the guest was left with 4 MiB free. A real fix is a memory budget, like zram's `mem_limit`.
 
 ## Memory under pressure (x86_64 perf kernel, 1 GiB KVM guest)
