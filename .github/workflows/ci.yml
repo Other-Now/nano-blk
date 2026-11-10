@@ -1,0 +1,85 @@
+name: ci
+on: [push, pull_request]
+
+env:
+  KVER: "6.18.62"
+  NB_BUILD: /home/runner/nb-build
+
+jobs:
+  guest:
+    name: ${{ matrix.flavor }} / ${{ matrix.suites }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {flavor: x86-debug, suites: "correct"}
+          - {flavor: ppc64le,   suites: "correct"}
+          - {flavor: x86-perf,  suites: "perf mem oom-nano oom-brd"}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Packages
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q flex bison bc libelf-dev libssl-dev cpio \
+            gcc-powerpc64le-linux-gnu libc6-dev-ppc64el-cross qemu-system-x86 qemu-system-ppc busybox-static
+          sudo chmod 666 /dev/kvm || true
+          ls -l /dev/kvm || true
+      - name: Kernel cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.NB_BUILD }}/k-${{ matrix.flavor }}
+          key: k-${{ matrix.flavor }}-${{ env.KVER }}-${{ hashFiles('kernel/*.config', 'scripts/build-kernel.sh') }}
+      - name: Build kernel ${{ env.KVER }} (${{ matrix.flavor }})
+        run: |
+          if [ -f $NB_BUILD/k-${{ matrix.flavor }}/vmlinux ]; then
+            # Cached output tree: the source tree still has to exist for M= builds.
+            mkdir -p $NB_BUILD && curl -fsSL https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$KVER.tar.xz | tar -C $NB_BUILD -xJ
+          else
+            scripts/build-kernel.sh ${{ matrix.flavor }} 2>&1 | tail -20
+          fi
+      - name: Build nano_blk (warnings are errors)
+        run: scripts/build-module.sh ${{ matrix.flavor }}
+      - name: Build guest tools
+        run: scripts/build-tools.sh
+      - name: Run suites
+        run: |
+          for s in ${{ matrix.suites }}; do
+            mem=1024; case $s in oom-*) mem=512 ;; esac
+            scripts/run-guest.sh ${{ matrix.flavor }} $s $mem 4
+          done
+      - name: Check results
+        run: python3 tools/check_results.py results/${{ matrix.flavor }}-*.jsonl | tee -a $GITHUB_STEP_SUMMARY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.flavor }}
+          path: results/
+
+  checkpatch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: checkpatch.pl --strict
+        run: |
+          curl -fsSL https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-$KVER.tar.xz | tar -xJ linux-$KVER/scripts
+          touch linux-$KVER/scripts/spelling.txt
+          linux-$KVER/scripts/checkpatch.pl --no-tree --strict --show-types -f nano_blk.c nano_blk_test.c tools/blkcheck.c
+
+  latest-stable-compile:
+    # Compile-only: does the driver still build against the newest stable kernel?
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -q flex bison bc libelf-dev libssl-dev
+      - name: Build against latest stable
+        run: |
+          V=$(curl -fsSL https://www.kernel.org/releases.json | python3 -c "import json,sys; print(json.load(sys.stdin)['latest_stable']['version'])")
+          echo "kernel $V" | tee -a $GITHUB_STEP_SUMMARY
+          curl -fsSL https://cdn.kernel.org/pub/linux/kernel/v${V%%.*}.x/linux-$V.tar.xz | tar -xJ
+          make -C linux-$V O=$PWD/kout defconfig >/dev/null
+          make -C linux-$V O=$PWD/kout -j$(nproc) modules_prepare >/dev/null
+          make -C linux-$V O=$PWD/kout M=$PWD W=1 KUNIT=1 modules 2>&1 | tee build.log
+          ! grep -E "nano_blk(_test)?\.c:[0-9]+:[0-9]+: (warning|error)" build.log
