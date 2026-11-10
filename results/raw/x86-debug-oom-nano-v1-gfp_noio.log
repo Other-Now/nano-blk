@@ -1,0 +1,67 @@
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+Booting from ROM...
+c[?7l[2Jsuite=oom-nano arch=x86_64 kernel=6.18.62
+NBP t=7070 memfree_kb=120812 nano_pages=0
+[    9.304107] Out of memory: Killed process 91 (dd) total-vm:3428kB, anon-rss:1024kB, file-rss:0kB, shmem-rss:1608kB, UID:0 pgtables:40kB oom_score_adj:0
+Killed
+[    9.296744] sh invoked oom-killer: gfp_mask=0x400dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO), order=3, oom_score_adj=-1000
+[    9.304107] Out of memory: Killed process 91 (dd) total-vm:3428kB, anon-rss:1024kB, file-rss:0kB, shmem-rss:1608kB, UID:0 pgtables:40kB oom_score_adj:0
+[  106.108754] Out of memory: Killed process 79 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:44kB oom_score_adj:0
+[  106.315599] Out of memory: Killed process 78 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:44kB oom_score_adj:0
+[  106.460840] Out of memory: Killed process 77 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:40kB oom_score_adj:0
+[  106.593167] Kernel panic - not syncing: System is deadlocked on memory
+[  106.656778] CPU: 1 UID: 0 PID: 102 Comm: sh Tainted: G        W  O        6.18.62 #1 PREEMPT(voluntary) 
+[  106.740453] Tainted: [W]=WARN, [O]=OOT_MODULE
+[  106.780490] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[  106.907682] Call Trace:
+[  106.937720]  <TASK>
+[  106.975786]  vpanic+0x432/0x4b0
+[  106.997756]  panic+0xc5/0xd0
+[  107.019317]  ? __pfx_panic+0x10/0x10
+[  107.053634]  ? panic_on_this_cpu+0x15/0x30
+[  107.088588]  out_of_memory+0x13d6/0x13f0
+[  107.118896]  ? __pfx_out_of_memory+0x10/0x10
+[  107.149736]  __alloc_frozen_pages_noprof+0x1c88/0x2390
+[  107.194489]  ? unwind_get_return_address+0x59/0xa0
+[  107.232684]  ? __pfx___alloc_frozen_pages_noprof+0x10/0x10
+[  107.270183]  ? __lock_acquire+0x753/0x1810
+[  107.312180]  alloc_pages_mpol+0xbe/0x2c0
+[  107.345317]  ? __pfx_alloc_pages_mpol+0x10/0x10
+[  107.374994]  ? lock_acquire+0x14d/0x2e0
+[  107.415694]  alloc_pages_noprof+0xb/0x70
+[  107.445770]  __pud_alloc+0x33/0x680
+[  107.472046]  copy_page_range+0x264b/0x3420
+[  107.516128]  ? lock_is_held_type+0x8f/0x100
+[  107.556327]  ? __pfx_copy_page_range+0x10/0x10
+[  107.604748]  ? mas_store+0x281/0xa20
+[  107.639263]  ? _raw_spin_unlock_irqrestore+0x3f/0x50
+[  107.682283]  ? __pfx_mas_store+0x10/0x10
+[  107.715306]  ? anon_vma_fork+0x40c/0x570
+[  107.743133]  dup_mmap+0xa53/0x1760
+[  107.766338]  ? __pfx_dup_mmap+0x10/0x10
+[  107.794093]  ? __pfx___might_resched+0x10/0x10
+[  107.837677]  ? lock_is_held_type+0x8f/0x100
+[  107.877618]  copy_process+0x3349/0x64f0
+[  107.914106]  ? __pfx_copy_process+0x10/0x10
+[  107.956511]  ? find_held_lock+0x2b/0x80
+[  107.986723]  ? __lock_acquire+0x999/0x1810
+[  108.021430]  kernel_clone+0xc9/0x600
+[  108.046652]  ? __pfx_kernel_clone+0x10/0x10
+[  108.077848]  ? lock_acquire+0x14d/0x2e0
+[  108.104123]  ? fd_install+0x81/0x470
+[  108.128200]  __do_sys_clone+0xb5/0x100
+[  108.158208]  ? __pfx___do_sys_clone+0x10/0x10
+[  108.191768]  ? do_user_addr_fault+0x455/0x9d0
+[  108.220997]  ? trace_irq_enable.constprop.0+0xbe/0x100
+[  108.261083]  do_syscall_64+0xbd/0x3f0
+[  108.296931]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[  108.345201] RIP: 0033:0x4e59a7
+[  108.373876] Code: c3 66 90 f3 0f 1e fa 64 48 8b 04 25 10 00 00 00 45 31 c0 31 d2 31 f6 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 39 89 c2 85 c0 75 2c 64 48 8b 04 25 10 00 00
+[  108.511347] RSP: 002b:00007ffdbb099488 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
+[  108.569386] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00000000004e59a7
+[  108.639074] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
+[  108.692902] RBP: 00007ffdbb099590 R08: 0000000000000000 R09: 000000000060b140
+[  108.749827] R10: 0000000003040690 R11: 0000000000000246 R12: 0000000000000000
+[  108.800451] R13: 0000000000000001 R14: 0000000000000000 R15: 00007ffdbb0995e0
+[  108.856847]  </TASK>
+[  108.881347] Kernel Offset: 0x9600000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)

@@ -1,0 +1,65 @@
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+Booting from ROM...
+c[?7l[2Jsuite=oom-brd arch=x86_64 kernel=6.18.62
+NBP t=7590 memfree_kb=119448 nano_pages=
+[    9.781510] Out of memory: Killed process 89 (dd) total-vm:3428kB, anon-rss:1024kB, file-rss:0kB, shmem-rss:1608kB, UID:0 pgtables:44kB oom_score_adj:0
+Killed
+[   10.053977] Out of memory: Killed process 78 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:44kB oom_score_adj:0
+[   10.206466] Out of memory: Killed process 77 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:40kB oom_score_adj:0
+[   10.349404] Out of memory: Killed process 76 (sleep) total-vm:2404kB, anon-rss:0kB, file-rss:0kB, shmem-rss:1444kB, UID:0 pgtables:40kB oom_score_adj:0
+[   10.484406] Kernel panic - not syncing: System is deadlocked on memory
+[   10.549579] CPU: 1 UID: 0 PID: 68 Comm: sh Tainted: G        W           6.18.62 #1 PREEMPT(voluntary) 
+[   10.633545] Tainted: [W]=WARN
+[   10.654189] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   10.762665] Call Trace:
+[   10.793157]  <TASK>
+[   10.806644]  vpanic+0x432/0x4b0
+[   10.831396]  panic+0xc5/0xd0
+[   10.854588]  ? __pfx_panic+0x10/0x10
+[   10.881822]  ? dump_header+0x5a8/0x7d0
+[   10.913133]  ? panic_on_this_cpu+0x15/0x30
+[   10.943061]  out_of_memory+0x13d6/0x13f0
+[   10.979409]  ? __pfx_out_of_memory+0x10/0x10
+[   11.019927]  __alloc_frozen_pages_noprof+0x1c88/0x2390
+[   11.064538]  ? __pfx___alloc_frozen_pages_noprof+0x10/0x10
+[   11.105952]  ? find_held_lock+0x2b/0x80
+[   11.138652]  ? __pfx___might_resched+0x10/0x10
+[   11.173066]  ? __lock_acquire+0x753/0x1810
+[   11.207352]  alloc_pages_mpol+0xbe/0x2c0
+[   11.231174]  ? __pfx_alloc_pages_mpol+0x10/0x10
+[   11.265883]  ? find_held_lock+0x2b/0x80
+[   11.301662]  new_slab+0x23b/0x2d0
+[   11.323854]  ___slab_alloc+0xadc/0x1360
+[   11.359623]  ? copy_process+0x35f/0x64f0
+[   11.399563]  ? find_held_lock+0x2b/0x80
+[   11.441544]  ? __pfx___might_resched+0x10/0x10
+[   11.488985]  ? __slab_alloc.isra.0+0x2c/0x60
+[   11.536833]  __slab_alloc.isra.0+0x2c/0x60
+[   11.576754]  kmem_cache_alloc_node_noprof+0x4df/0x750
+[   11.634140]  ? copy_process+0x310/0x64f0
+[   11.670882]  ? copy_process+0x35f/0x64f0
+[   11.714297]  ? copy_process+0x35f/0x64f0
+[   11.754292]  copy_process+0x35f/0x64f0
+[   11.795915]  ? __pfx___css_rstat_updated+0x10/0x10
+[   11.846865]  ? lock_acquire+0x14d/0x2e0
+[   11.884923]  ? __pfx_copy_process+0x10/0x10
+[   11.921043]  ? __pfx___up_read+0x10/0x10
+[   11.949207]  ? lock_release+0xc5/0x290
+[   11.994530]  kernel_clone+0xc9/0x600
+[   12.023226]  ? __pfx_kernel_clone+0x10/0x10
+[   12.058193]  ? trace_irq_enable.constprop.0+0xbe/0x100
+[   12.100114]  __do_sys_clone+0xb5/0x100
+[   12.132664]  ? __pfx___do_sys_clone+0x10/0x10
+[   12.176246]  ? trace_irq_enable.constprop.0+0xbe/0x100
+[   12.220540]  do_syscall_64+0xbd/0x3f0
+[   12.255831]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   12.300677] RIP: 0033:0x4e59a7
+[   12.330240] Code: c3 66 90 f3 0f 1e fa 64 48 8b 04 25 10 00 00 00 45 31 c0 31 d2 31 f6 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 39 89 c2 85 c0 75 2c 64 48 8b 04 25 10 00 00
+[   12.555677] RSP: 002b:00007ffde28a3c28 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
+[   12.631566] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00000000004e59a7
+[   12.689217] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
+[   12.747445] RBP: 00007ffde28a3d30 R08: 0000000000000000 R09: 0000000000000007
+[   12.813179] R10: 000000002594c690 R11: 0000000000000246 R12: 0000000000000000
+[   12.878989] R13: 0000000000000001 R14: 0000000000000000 R15: 00007ffde28a3d80
+[   12.936169]  </TASK>
+[   12.960845] Kernel Offset: 0x6a00000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)

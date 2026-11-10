@@ -1,0 +1,12 @@
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+Booting from ROM...
+c[?7l[2Jsuite=oom-nano arch=x86_64 kernel=6.18.62
+NBP t=7740 memfree_kb=121604 nano_pages=0
+[    8.890956] I/O error, dev nblk0, sector 231424 op 0x1:(WRITE) flags 0xc800 phys_seg 25 prio class 2
+dd: error writing '/dev/nblk0': Input/output error
+114+0 records in
+113+0 records out
+[    8.890956] I/O error, dev nblk0, sector 231424 op 0x1:(WRITE) flags 0xc800 phys_seg 25 prio class 2
+NB {"test":"oom","dev":"nano","guest_mem_mib":279,"memfree_before_mib":119,"dd_rc":1,"written_mib":113,"seconds":1,"oom_kills":0,"victims":"","oom_gfp":"","io_errors":1,"driver_mib":113,"driver_alloc_failures":1,"memfree_after_mib":4}
+NB-END
+[   10.573569] reboot: Power down

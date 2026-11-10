@@ -1,0 +1,1 @@
+{"test":"oom","dev":"nano","guest_mem_mib":279,"memfree_before_mib":119,"dd_rc":1,"written_mib":113,"seconds":1,"oom_kills":0,"victims":"","oom_gfp":"","io_errors":1,"driver_mib":113,"driver_alloc_failures":1,"memfree_after_mib":4}
