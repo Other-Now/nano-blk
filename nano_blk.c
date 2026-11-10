@@ -87,7 +87,7 @@ static void nblk_store_destroy(struct nblk_dev *dev)
 /* Make sure the page at @idx exists.  May sleep. */
 static int nblk_insert_page(struct nblk_dev *dev, pgoff_t idx)
 {
-	const gfp_t gfp = GFP_NOIO | __GFP_ZERO;
+	const gfp_t gfp = GFP_NOIO | __GFP_ZERO | __GFP_NORETRY | __GFP_NOWARN;
 	struct page *page, *cur;
 
 	if (xa_load(&dev->pages, idx))
