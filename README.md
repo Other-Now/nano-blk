@@ -39,7 +39,7 @@ Raw console logs are in `results/raw/`, and each run's result lines are in `resu
 | blkcheck, 3 seeds × 20,000 ops on a 64 MiB device | **0 mismatches**, 0 I/O errors (~30k writes, ~24k verified reads, ~6k discards) |
 | fio `verify=crc32c`, 4 jobs, QD16, 4–128 KiB | 0 verify errors |
 | Discard 32 MiB | 8,192 → 0 pages; range reads back as zeroes |
-| Page-allocation fault injection (`fail_page_alloc`, 5%) over 16,384 block writes | 831 allocations failed → exactly **831 writes returned EIO**; **0 corrupted blocks**; device healthy afterwards (an earlier run, before the `__GFP_NORETRY` change: 765 / 765 / 0) |
+| Page-allocation fault injection (`fail_page_alloc`, 5%) over 16,384 block writes | 852 allocations failed → exactly **852 writes returned EIO**; **0 corrupted blocks**; device healthy afterwards (earlier runs: 765/765/0 before the `__GFP_NORETRY` change, 831/831/0 after) |
 | Unload | kmemleak **0** new leaks; **0** new KASAN/lockdep/RCU splats (one boot-time `__change_page_attr` WARNING happens before the module loads and is excluded) |
 
 ## Results: IBM Power (ppc64le pseries, emulated POWER9, TCG)
@@ -51,8 +51,14 @@ The same module source, cross-compiled with `powerpc64le-linux-gnu-gcc` and run 
 | KUnit `nano_blk_store` | **7/7 pass** with 64 KiB pages |
 | blkcheck, 3 seeds × 4,000 ops (fewer: TCG is slow) | **0 mismatches** |
 | Discard 32 MiB | 512 → 0 pages (64 KiB each); reads back as zeroes |
-| Fault injection | 57 allocations failed → 57 EIO, **0 corrupted blocks** |
+| Fault injection | 54 allocations failed → 54 EIO, **0 corrupted blocks** |
 | Unload | kmemleak 0; **0** new splats (the 8 at boot come from the in-tree `ibmveth` KUnit tests, which deliberately hit `WARN_ON`; comm `kunit_try_catch`, taint `N`) |
+
+**A harness bug CI caught:** the fault test first set `/proc/self/make-it-fail` in a shell and then `exec`'d blkcheck. Injected failures could therefore hit `exec()` itself:
+- on one CI ppc64le run the exec failed (exit 126) and produced no result;
+- the local runs had passed by luck.
+
+blkcheck now opts in itself (`BLKCHECK_MAKE_IT_FAIL=1`), after its setup is done.
 
 ### Finding: 64 KiB pages make sparse writes 16× more expensive on Power
 

@@ -38,7 +38,7 @@ Max number of cores passed to firmware: 2048 (NR_CPUS = 2048)
 Calling ibm,client-architecture-support... done
 memory layout at init:
   memory_limit : 0000000000000000 (16 MB aligned)
-  alloc_bottom : 00000000040b0000
+  alloc_bottom : 00000000040c0000
   alloc_top    : 0000000030000000
   alloc_top_hi : 0000000040000000
   rmo_top      : 0000000030000000
@@ -48,35 +48,35 @@ prom_hold_cpus: skipped
 copying OF device tree...
 Building dt strings...
 Building dt structure...
-Device tree strings 0x00000000040c0000 -> 0x00000000040c0ae4
-Device tree struct  0x00000000040d0000 -> 0x00000000040e0000
+Device tree strings 0x00000000040d0000 -> 0x00000000040d0ae4
+Device tree struct  0x00000000040e0000 -> 0x00000000040f0000
 Quiescing Open Firmware ...
 Booting Linux via __start() @ 0x0000000000400000 ...
 Linux ppc64le
-#1 SMP Tue Nov 1[   65.086019][   T73] initramfs name without nulterm: initramfs_test_fname_overrunP
-[  108.203799][  T125] Invalid fixed minor 259 for miscdevice 'miscstat'
-[  108.297685][  T127] Invalid fixed minor 259 for miscdevice 'miscstat'
-[  109.226682][  T139]     # test_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.226682][  T139]     Expected IS_ERR(bp) to be false, but is true
-[  109.298669][  T141]     # test_many_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.298669][  T141]     Expected IS_ERR(bp) to be false, but is true
-[  109.363180][  T143]     # test_one_task_on_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.363180][  T143]     Expected IS_ERR(bp) to be false, but is true
-[  109.410061][  T145]     # test_two_tasks_on_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.410061][  T145]     Expected IS_ERR(bp) to be false, but is true
-[  109.446697][  T147]     # test_one_task_on_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.446697][  T147]     Expected IS_ERR(bp) to be false, but is true
-[  109.528762][  T151]     # test_two_tasks_on_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.528762][  T151]     Expected IS_ERR(bp) to be false, but is true
-[  109.550922][  T153]     # test_two_tasks_on_one_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
-[  109.550922][  T153]     Expected IS_ERR(bp) to be false, but is true
-[  110.132112][  T189] Invalid fixed minor 256 for miscdevice 'misc_test'
-[  110.957521][  T207] kobject: kobject_add_internal failed for misc1 with -EEXIST, don't try to register things with the same name in the same directory.
-[  111.129574][  T209] kobject: kobject_add_internal failed for misc1 with -EEXIST, don't try to register things with the same name in the same directory.
-[  111.227038][  T211] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
-[  111.334979][  T213] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
-[  111.428379][  T215] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
-[  111.542826][  T217] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
+#1 SMP Tue Nov 1[   34.005394][   T72] initramfs name without nulterm: initramfs_test_fname_overrunP
+[   42.167111][  T124] Invalid fixed minor 259 for miscdevice 'miscstat'
+[   42.186534][  T126] Invalid fixed minor 259 for miscdevice 'miscstat'
+[   42.334635][  T138]     # test_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.334635][  T138]     Expected IS_ERR(bp) to be false, but is true
+[   42.346517][  T140]     # test_many_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.346517][  T140]     Expected IS_ERR(bp) to be false, but is true
+[   42.363625][  T142]     # test_one_task_on_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.363625][  T142]     Expected IS_ERR(bp) to be false, but is true
+[   42.374616][  T144]     # test_two_tasks_on_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.374616][  T144]     Expected IS_ERR(bp) to be false, but is true
+[   42.385719][  T146]     # test_one_task_on_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.385719][  T146]     Expected IS_ERR(bp) to be false, but is true
+[   42.401453][  T150]     # test_two_tasks_on_one_cpu: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.401453][  T150]     Expected IS_ERR(bp) to be false, but is true
+[   42.412332][  T152]     # test_two_tasks_on_one_all_cpus: ASSERTION FAILED at kernel/events/hw_breakpoint_test.c:70
+[   42.412332][  T152]     Expected IS_ERR(bp) to be false, but is true
+[   42.536237][  T188] Invalid fixed minor 256 for miscdevice 'misc_test'
+[   42.646209][  T206] kobject: kobject_add_internal failed for misc1 with -EEXIST, don't try to register things with the same name in the same directory.
+[   42.667258][  T208] kobject: kobject_add_internal failed for misc1 with -EEXIST, don't try to register things with the same name in the same directory.
+[   42.687521][  T210] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
+[   42.710994][  T212] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
+[   42.741706][  T214] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
+[   42.773429][  T216] kobject: kobject_add_internal failed for name1 with -EEXIST, don't try to register things with the same name in the same directory.
 suite=correct arch=ppc64le kernel=6.18.62
 KTAP version 1
 1..1
@@ -88,7 +88,7 @@ KTAP version 1
     ok 3 nblk_test_overwrite_no_new_pages
     ok 4 nblk_test_discard
     ok 5 nblk_test_discard_hole
-    # nblk_test_random_vs_model: Test should be marked slow (runtime: 8.825284037s)
+    # nblk_test_random_vs_model: Test should be marked slow (runtime: 2.317381785s)
     ok 6 nblk_test_random_vs_model
     ok 7 nblk_test_insert_race
     # module: nano_blk
@@ -98,154 +98,144 @@ ok 1 nano_blk_store
 NB {"test":"kunit","arch":"ppc64le","pass":7,"fail":0}
 65536
 65536
-NB {"test":"blkcheck","arch":"ppc64le","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2058,"reads":1583,"discards":359,"mismatches":0,"io_errors":0,"seconds":17.37},"pages":970}
-NB {"test":"blkcheck","arch":"ppc64le","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2022,"reads":1586,"discards":392,"mismatches":0,"io_errors":0,"seconds":12.22},"pages":938}
-NB {"test":"blkcheck","arch":"ppc64le","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":1961,"reads":1641,"discards":398,"mismatches":0,"io_errors":0,"seconds":14.39},"pages":951}
+NB {"test":"blkcheck","arch":"ppc64le","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2058,"reads":1583,"discards":359,"mismatches":0,"io_errors":0,"seconds":4.47},"pages":970}
+NB {"test":"blkcheck","arch":"ppc64le","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2022,"reads":1586,"discards":392,"mismatches":0,"io_errors":0,"seconds":4.77},"pages":938}
+NB {"test":"blkcheck","arch":"ppc64le","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":1961,"reads":1641,"discards":398,"mismatches":0,"io_errors":0,"seconds":4.31},"pages":951}
 NB {"test":"discard","arch":"ppc64le","pages_after_32MiB_write":512,"pages_after_discard":0,"reads_zero":true}
 NB {"test":"amplification","arch":"ppc64le","page_size":65536,"writes_4k":1024,"data_bytes":4194304,"pages":1024,"backing_bytes":67108864}
-[  278.259490][ T1340] I/O error, dev nblk0, sector 2432 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.493624][ T1340] I/O error, dev nblk0, sector 6912 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.529960][ T1340] I/O error, dev nblk0, sector 7680 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.583926][ T1340] I/O error, dev nblk0, sector 8448 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.836583][ T1340] I/O error, dev nblk0, sector 12032 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.966157][ T1340] I/O error, dev nblk0, sector 12928 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.981560][ T1340] I/O error, dev nblk0, sector 12936 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  278.993920][ T1340] I/O error, dev nblk0, sector 12944 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  279.325693][ T1340] I/O error, dev nblk0, sector 18304 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  279.387246][ T1340] I/O error, dev nblk0, sector 19072 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.295706][ T1340] I/O error, dev nblk0, sector 89984 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.333935][ T1340] I/O error, dev nblk0, sector 90496 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.657910][ T1340] I/O error, dev nblk0, sector 94080 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.662740][ T1340] I/O error, dev nblk0, sector 94088 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.758685][ T1340] I/O error, dev nblk0, sector 95232 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.838689][ T1340] I/O error, dev nblk0, sector 96128 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.943134][ T1340] I/O error, dev nblk0, sector 98176 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  283.968041][ T1340] I/O error, dev nblk0, sector 99072 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  284.119968][ T1340] I/O error, dev nblk0, sector 101760 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[  284.359731][ T1340] I/O error, dev nblk0, sector 103424 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-NB {"test":"fault","arch":"ppc64le","rc":0,"fill":{"mode":"fill","blocks":16384,"written":16327,"failed_writes":57,"bad_blocks":0},"driver_alloc_failures":57,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":9.47}}
+[   90.057781][ T1339] I/O error, dev nblk0, sector 2688 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.067147][ T1339] I/O error, dev nblk0, sector 2816 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.085984][ T1339] I/O error, dev nblk0, sector 3840 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.092377][ T1339] I/O error, dev nblk0, sector 3848 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.145955][ T1339] I/O error, dev nblk0, sector 7552 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.198772][ T1339] I/O error, dev nblk0, sector 10880 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.213636][ T1339] I/O error, dev nblk0, sector 11648 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.247206][ T1339] I/O error, dev nblk0, sector 13952 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.291387][ T1339] I/O error, dev nblk0, sector 17664 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   90.334499][ T1339] I/O error, dev nblk0, sector 21376 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+NB {"test":"fault","arch":"ppc64le","rc":0,"fill":{"mode":"fill","blocks":16384,"written":16330,"failed_writes":54,"bad_blocks":0},"driver_alloc_failures":54,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":2.09}}
 ---- splat lines ----
-[  112.021339][  T227] WARNING: CPU: 0 PID: 227 at drivers/net/ethernet/ibm/ibmveth.c:465 ibmveth_remove_buffer_from_pool+0x28/0x20c
-[  112.023081][  T227] Modules linked in:
-[  112.029042][  T227] CPU: 0 UID: 0 PID: 227 Comm: kunit_try_catch Tainted: G                 N  6.18.62 #1 VOLUNTARY 
-[  112.029392][  T227] Tainted: [N]=TEST
-[  112.029466][  T227] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
-[  112.029750][  T227] NIP:  c000000001060d18 LR: c000000001061084 CTR: 0000000000000000
-[  112.029944][  T227] REGS: c0000000086d7b00 TRAP: 0700   Tainted: G                 N   (6.18.62)
-[  112.030139][  T227] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 88000202  XER: 00000000
-[  112.030777][  T227] CFAR: c000000001061080 IRQMASK: 0 
-[  112.030777][  T227] GPR00: c000000001061048 c0000000086d7da0 c000000001c58100 c0000000087d6800 
-[  112.030777][  T227] GPR04: 0000000500000000 0000000000000000 c0000000086d7c24 000000003dc10000 
-[  112.030777][  T227] GPR08: 000000003dc10000 0000000000000001 0000000000000000 0000000000000000 
-[  112.030777][  T227] GPR12: 000000003dc10000 c000000003aa0000 c00000000026dbb4 c00000000485e4c0 
-[  112.030777][  T227] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.030777][  T227] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.030777][  T227] GPR24: 0000000000000000 0000000000000000 c000000004607708 c000000000d65990 
-[  112.030777][  T227] GPR28: c00000000171c6d8 0000000000000005 c0000000046076c8 c0000000087d6800 
-[  112.032475][  T227] NIP [c000000001060d18] ibmveth_remove_buffer_from_pool+0x28/0x20c
-[  112.032685][  T227] LR [c000000001061084] ibmveth_remove_buffer_from_pool_test+0x188/0x4b8
-[  112.037190][  T227] Call Trace:
-[  112.037285][  T227] [c0000000086d7da0] [c0000000046076c8] 0xc0000000046076c8 (unreliable)
-[  112.038698][  T227] [c0000000086d7df0] [c000000001061048] ibmveth_remove_buffer_from_pool_test+0x14c/0x4b8
-[  112.038791][  T227] [c0000000086d7ea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
-[  112.038931][  T227] [c0000000086d7f60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
-[  112.038991][  T227] [c0000000086d7f90] [c00000000026dd2c] kthread+0x180/0x190
-[  112.039043][  T227] [c0000000086d7fe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
-[  112.039193][  T227] Code: 485d8ad9 60000000 3c4c00bf 38427410 60000000 fba1ffe8 789d0022 fbe1fff8 7c7f1b78 f821ffb1 213d0004 79290fe0 <0b090000> 283d0004 41810158 fb810030 
-[  112.039877][  T227] irq event stamp: 38
-[  112.039935][  T227] hardirqs last  enabled at (37): [<c00000000164d694>] _raw_spin_unlock_irqrestore+0x8c/0xc4
-[  112.040067][  T227] hardirqs last disabled at (38): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
-[  112.040191][  T227] softirqs last  enabled at (0): [<c000000000221954>] copy_process+0xa0c/0x2120
+[   42.859298][  T226] WARNING: CPU: 0 PID: 226 at drivers/net/ethernet/ibm/ibmveth.c:465 ibmveth_remove_buffer_from_pool+0x28/0x20c
+[   42.859755][  T226] Modules linked in:
+[   42.860312][  T226] CPU: 0 UID: 0 PID: 226 Comm: kunit_try_catch Tainted: G                 N  6.18.62 #1 VOLUNTARY 
+[   42.860565][  T226] Tainted: [N]=TEST
+[   42.860607][  T226] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
+[   42.863013][  T226] NIP:  c000000001060d18 LR: c000000001061084 CTR: 0000000000000000
+[   42.863105][  T226] REGS: c00000000885fb00 TRAP: 0700   Tainted: G                 N   (6.18.62)
+[   42.863180][  T226] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 88000202  XER: 00000000
+[   42.863477][  T226] CFAR: c000000001061080 IRQMASK: 0 
+[   42.863477][  T226] GPR00: c000000001061048 c00000000885fda0 c000000001c58100 c0000000101be800 
+[   42.863477][  T226] GPR04: 0000000500000000 0000000000000000 c00000000885fc24 000000003dc10000 
+[   42.863477][  T226] GPR08: 000000003dc10000 0000000000000001 0000000000000000 0000000000000000 
+[   42.863477][  T226] GPR12: 000000003dc10000 c000000003aa0000 c00000000026dbb4 c00000000485e500 
+[   42.863477][  T226] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.863477][  T226] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.863477][  T226] GPR24: 0000000000000000 0000000000000000 c000000004677708 c000000000d65990 
+[   42.863477][  T226] GPR28: c00000000171c6d8 0000000000000005 c0000000046776c8 c0000000101be800 
+[   42.864119][  T226] NIP [c000000001060d18] ibmveth_remove_buffer_from_pool+0x28/0x20c
+[   42.864166][  T226] LR [c000000001061084] ibmveth_remove_buffer_from_pool_test+0x188/0x4b8
+[   42.864355][  T226] Call Trace:
+[   42.864420][  T226] [c00000000885fda0] [c0000000046776c8] 0xc0000000046776c8 (unreliable)
+[   42.865120][  T226] [c00000000885fdf0] [c000000001061048] ibmveth_remove_buffer_from_pool_test+0x14c/0x4b8
+[   42.865194][  T226] [c00000000885fea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
+[   42.865298][  T226] [c00000000885ff60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
+[   42.865344][  T226] [c00000000885ff90] [c00000000026dd2c] kthread+0x180/0x190
+[   42.865386][  T226] [c00000000885ffe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
+[   42.865524][  T226] Code: 485d8ad9 60000000 3c4c00bf 38427410 60000000 fba1ffe8 789d0022 fbe1fff8 7c7f1b78 f821ffb1 213d0004 79290fe0 <0b090000> 283d0004 41810158 fb810030 
+[   42.865929][  T226] irq event stamp: 142
+[   42.865963][  T226] hardirqs last  enabled at (141): [<c0000000000307d4>] interrupt_exit_kernel_prepare+0xf4/0x290
+[   42.866006][  T226] hardirqs last disabled at (142): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
+[   42.866047][  T226] softirqs last  enabled at (140): [<c00000000023411c>] handle_softirqs+0x598/0x5b0
 --
-[  112.046110][  T227] WARNING: CPU: 0 PID: 227 at drivers/net/ethernet/ibm/ibmveth.c:465 ibmveth_remove_buffer_from_pool+0x28/0x20c
-[  112.046216][  T227] Modules linked in:
-[  112.048957][  T227] CPU: 0 UID: 0 PID: 227 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
-[  112.049058][  T227] Tainted: [W]=WARN, [N]=TEST
-[  112.049098][  T227] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
-[  112.049152][  T227] NIP:  c000000001060d18 LR: c0000000010610ac CTR: c000000000028890
-[  112.049202][  T227] REGS: c0000000086d7b00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
-[  112.049252][  T227] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 24000802  XER: 00000000
-[  112.049575][  T227] CFAR: c0000000010610a8 IRQMASK: 0 
-[  112.049575][  T227] GPR00: c000000001061084 c0000000086d7da0 c000000001c58100 c0000000087d6800 
-[  112.049575][  T227] GPR04: 0000000500000000 0000000000000001 c000000002a88300 000000000006f3bc 
-[  112.049575][  T227] GPR08: 000000003dc10000 0000000000000001 c0000000083f8c00 0000000000000000 
-[  112.049575][  T227] GPR12: c000000000028890 c000000003aa0000 c00000000026dbb4 c00000000485e4c0 
-[  112.049575][  T227] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.049575][  T227] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.049575][  T227] GPR24: 0000000000000000 0000000000000000 c000000004607708 c000000000d65990 
-[  112.049575][  T227] GPR28: c00000000171c6d8 0000000000000005 c0000000046076c8 c0000000087d6800 
-[  112.050696][  T227] NIP [c000000001060d18] ibmveth_remove_buffer_from_pool+0x28/0x20c
-[  112.050773][  T227] LR [c0000000010610ac] ibmveth_remove_buffer_from_pool_test+0x1b0/0x4b8
-[  112.050830][  T227] Call Trace:
-[  112.050865][  T227] [c0000000086d7da0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
-[  112.050971][  T227] [c0000000086d7df0] [c000000001061084] ibmveth_remove_buffer_from_pool_test+0x188/0x4b8
-[  112.051065][  T227] [c0000000086d7ea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
-[  112.051155][  T227] [c0000000086d7f60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
-[  112.051238][  T227] [c0000000086d7f90] [c00000000026dd2c] kthread+0x180/0x190
-[  112.051316][  T227] [c0000000086d7fe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
-[  112.051395][  T227] Code: 485d8ad9 60000000 3c4c00bf 38427410 60000000 fba1ffe8 789d0022 fbe1fff8 7c7f1b78 f821ffb1 213d0004 79290fe0 <0b090000> 283d0004 41810158 fb810030 
-[  112.051833][  T227] irq event stamp: 56
-[  112.051866][  T227] hardirqs last  enabled at (55): [<c00000000003a298>] arch_local_irq_restore+0x110/0x1e4
-[  112.051926][  T227] hardirqs last disabled at (56): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
-[  112.051983][  T227] softirqs last  enabled at (48): [<c00000000023411c>] handle_softirqs+0x598/0x5b0
+[   42.866944][  T226] WARNING: CPU: 0 PID: 226 at drivers/net/ethernet/ibm/ibmveth.c:465 ibmveth_remove_buffer_from_pool+0x28/0x20c
+[   42.866987][  T226] Modules linked in:
+[   42.867026][  T226] CPU: 0 UID: 0 PID: 226 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
+[   42.867062][  T226] Tainted: [W]=WARN, [N]=TEST
+[   42.867117][  T226] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
+[   42.867142][  T226] NIP:  c000000001060d18 LR: c0000000010610ac CTR: 0000000000000000
+[   42.867165][  T226] REGS: c00000000885fb00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
+[   42.867186][  T226] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 28000202  XER: 00000000
+[   42.867328][  T226] CFAR: c0000000010610a8 IRQMASK: 0 
+[   42.867328][  T226] GPR00: c000000001061084 c00000000885fda0 c000000001c58100 c0000000101be800 
+[   42.867328][  T226] GPR04: 0000000500000000 0000000000000001 c00000000885fc34 000000003dc10000 
+[   42.867328][  T226] GPR08: 000000003dc10000 0000000000000001 0000000000000001 0000000000000000 
+[   42.867328][  T226] GPR12: 000000003dc10000 c000000003aa0000 c00000000026dbb4 c00000000485e500 
+[   42.867328][  T226] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.867328][  T226] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.867328][  T226] GPR24: 0000000000000000 0000000000000000 c000000004677708 c000000000d65990 
+[   42.867328][  T226] GPR28: c00000000171c6d8 0000000000000005 c0000000046776c8 c0000000101be800 
+[   42.867845][  T226] NIP [c000000001060d18] ibmveth_remove_buffer_from_pool+0x28/0x20c
+[   42.867880][  T226] LR [c0000000010610ac] ibmveth_remove_buffer_from_pool_test+0x1b0/0x4b8
+[   42.867908][  T226] Call Trace:
+[   42.867924][  T226] [c00000000885fda0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
+[   42.867976][  T226] [c00000000885fdf0] [c000000001061084] ibmveth_remove_buffer_from_pool_test+0x188/0x4b8
+[   42.868016][  T226] [c00000000885fea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
+[   42.868055][  T226] [c00000000885ff60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
+[   42.868096][  T226] [c00000000885ff90] [c00000000026dd2c] kthread+0x180/0x190
+[   42.868133][  T226] [c00000000885ffe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
+[   42.868203][  T226] Code: 485d8ad9 60000000 3c4c00bf 38427410 60000000 fba1ffe8 789d0022 fbe1fff8 7c7f1b78 f821ffb1 213d0004 79290fe0 <0b090000> 283d0004 41810158 fb810030 
+[   42.868414][  T226] irq event stamp: 192
+[   42.868431][  T226] hardirqs last  enabled at (191): [<c000000000260170>] queue_work_on+0xe4/0x130
+[   42.868460][  T226] hardirqs last disabled at (192): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
+[   42.868489][  T226] softirqs last  enabled at (188): [<c00000000023411c>] handle_softirqs+0x598/0x5b0
 --
-[  112.057329][  T227] WARNING: CPU: 0 PID: 227 at drivers/net/ethernet/ibm/ibmveth.c:466 ibmveth_remove_buffer_from_pool+0x60/0x20c
-[  112.057398][  T227] Modules linked in:
-[  112.057450][  T227] CPU: 0 UID: 0 PID: 227 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
-[  112.057489][  T227] Tainted: [W]=WARN, [N]=TEST
-[  112.057508][  T227] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
-[  112.057530][  T227] NIP:  c000000001060d50 LR: c0000000010610d4 CTR: c000000000028890
-[  112.057555][  T227] REGS: c0000000086d7b00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
-[  112.057579][  T227] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 84000802  XER: 20040000
-[  112.057749][  T227] CFAR: c0000000010610d0 IRQMASK: 0 
-[  112.057749][  T227] GPR00: c0000000010610ac c0000000086d7da0 c000000001c58100 c0000000087d6800 
-[  112.057749][  T227] GPR04: 0000000000000100 0000000000000000 c000000002a88300 0000000000000000 
-[  112.057749][  T227] GPR08: 0000000000000100 0000000000000001 0000000000000100 0000000000000000 
-[  112.057749][  T227] GPR12: c000000000028890 c000000003aa0000 c00000000026dbb4 c00000000485e4c0 
-[  112.057749][  T227] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.057749][  T227] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.057749][  T227] GPR24: 0000000000000000 0000000000000000 c000000004607708 0000000000000100 
-[  112.057749][  T227] GPR28: c0000000087d6800 0000000000000000 0000000000000100 c0000000087d6800 
-[  112.058381][  T227] NIP [c000000001060d50] ibmveth_remove_buffer_from_pool+0x60/0x20c
-[  112.058420][  T227] LR [c0000000010610d4] ibmveth_remove_buffer_from_pool_test+0x1d8/0x4b8
-[  112.058454][  T227] Call Trace:
-[  112.058489][  T227] [c0000000086d7da0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
-[  112.058549][  T227] [c0000000086d7df0] [c0000000010610ac] ibmveth_remove_buffer_from_pool_test+0x1b0/0x4b8
-[  112.058610][  T227] [c0000000086d7ea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
-[  112.058657][  T227] [c0000000086d7f60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
-[  112.058703][  T227] [c0000000086d7f90] [c00000000026dd2c] kthread+0x180/0x190
-[  112.058746][  T227] [c0000000086d7fe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
-[  112.058789][  T227] Code: 41810158 fb810030 7bbc3e24 fbc10040 78880020 7c9e2378 7f83e214 815c03a0 79490020 7d294050 79290fe0 69290001 <0b090000> 7c0a2040 40810118 e8fc03d0 
-[  112.059051][  T227] irq event stamp: 76
-[  112.059071][  T227] hardirqs last  enabled at (75): [<c0000000000307d4>] interrupt_exit_kernel_prepare+0xf4/0x290
-[  112.059105][  T227] hardirqs last disabled at (76): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
-[  112.059139][  T227] softirqs last  enabled at (74): [<c00000000023411c>] handle_softirqs+0x598/0x5b0
+[   42.868794][  T226] WARNING: CPU: 0 PID: 226 at drivers/net/ethernet/ibm/ibmveth.c:466 ibmveth_remove_buffer_from_pool+0x60/0x20c
+[   42.868884][  T226] Modules linked in:
+[   42.868925][  T226] CPU: 0 UID: 0 PID: 226 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
+[   42.868957][  T226] Tainted: [W]=WARN, [N]=TEST
+[   42.868973][  T226] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
+[   42.868991][  T226] NIP:  c000000001060d50 LR: c0000000010610d4 CTR: 0000000000000000
+[   42.869011][  T226] REGS: c00000000885fb00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
+[   42.869031][  T226] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 88000202  XER: 20040000
+[   42.869187][  T226] CFAR: c0000000010610d0 IRQMASK: 0 
+[   42.869187][  T226] GPR00: c0000000010610ac c00000000885fda0 c000000001c58100 c0000000101be800 
+[   42.869187][  T226] GPR04: 0000000000000100 0000000000000000 c00000000885fc34 0000000000000000 
+[   42.869187][  T226] GPR08: 0000000000000100 0000000000000001 0000000000000100 0000000000000000 
+[   42.869187][  T226] GPR12: 000000003dc10000 c000000003aa0000 c00000000026dbb4 c00000000485e500 
+[   42.869187][  T226] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.869187][  T226] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.869187][  T226] GPR24: 0000000000000000 0000000000000000 c000000004677708 0000000000000100 
+[   42.869187][  T226] GPR28: c0000000101be800 0000000000000000 0000000000000100 c0000000101be800 
+[   42.869689][  T226] NIP [c000000001060d50] ibmveth_remove_buffer_from_pool+0x60/0x20c
+[   42.869724][  T226] LR [c0000000010610d4] ibmveth_remove_buffer_from_pool_test+0x1d8/0x4b8
+[   42.869752][  T226] Call Trace:
+[   42.869768][  T226] [c00000000885fda0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
+[   42.869820][  T226] [c00000000885fdf0] [c0000000010610ac] ibmveth_remove_buffer_from_pool_test+0x1b0/0x4b8
+[   42.869860][  T226] [c00000000885fea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
+[   42.869901][  T226] [c00000000885ff60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
+[   42.869942][  T226] [c00000000885ff90] [c00000000026dd2c] kthread+0x180/0x190
+[   42.869980][  T226] [c00000000885ffe0] [c00000000000ded8] start_kernel_thread+0x14/0x18
+[   42.870040][  T226] Code: 41810158 fb810030 7bbc3e24 fbc10040 78880020 7c9e2378 7f83e214 815c03a0 79490020 7d294050 79290fe0 69290001 <0b090000> 7c0a2040 40810118 e8fc03d0 
+[   42.870293][  T226] irq event stamp: 200
+[   42.870311][  T226] hardirqs last  enabled at (199): [<c000000000260170>] queue_work_on+0xe4/0x130
+[   42.870344][  T226] hardirqs last disabled at (200): [<c00000000002a270>] interrupt_enter_prepare+0x88/0x1ec
+[   42.870378][  T226] softirqs last  enabled at (188): [<c00000000023411c>] handle_softirqs+0x598/0x5b0
 --
-[  112.065981][  T227] WARNING: CPU: 0 PID: 227 at drivers/net/ethernet/ibm/ibmveth.c:466 ibmveth_remove_buffer_from_pool+0x60/0x20c
-[  112.066105][  T227] Modules linked in:
-[  112.066237][  T227] CPU: 0 UID: 0 PID: 227 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
-[  112.066319][  T227] Tainted: [W]=WARN, [N]=TEST
-[  112.066356][  T227] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
-[  112.066399][  T227] NIP:  c000000001060d50 LR: c0000000010610f8 CTR: c000000000028890
-[  112.066452][  T227] REGS: c0000000086d7b00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
-[  112.066498][  T227] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 84000802  XER: 20040000
-[  112.066856][  T227] CFAR: c0000000010610f4 IRQMASK: 0 
-[  112.066856][  T227] GPR00: c0000000010610d4 c0000000086d7da0 c000000001c58100 c0000000087d6800 
-[  112.066856][  T227] GPR04: 0000000000000100 0000000000000001 c000000002a88300 0000000000000000 
-[  112.066856][  T227] GPR08: 0000000000000100 0000000000000001 0000000000000100 0000000000000000 
-[  112.066856][  T227] GPR12: c000000000028890 c000000003aa0000 c00000000026dbb4 c00000000485e4c0 
-[  112.066856][  T227] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.066856][  T227] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
-[  112.066856][  T227] GPR24: 0000000000000000 0000000000000000 c000000004607708 0000000000000100 
-[  112.066856][  T227] GPR28: c0000000087d6800 0000000000000000 0000000000000100 c0000000087d6800 
-[  112.068201][  T227] NIP [c000000001060d50] ibmveth_remove_buffer_from_pool+0x60/0x20c
-[  112.068324][  T227] LR [c0000000010610f8] ibmveth_remove_buffer_from_pool_test+0x1fc/0x4b8
-[  112.068392][  T227] Call Trace:
-[  112.068432][  T227] [c0000000086d7da0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
-[  112.068584][  T227] [c0000000086d7df0] [c0000000010610d4] ibmveth_remove_buffer_from_pool_test+0x1d8/0x4b8
-[  112.068682][  T227] [c0000000086d7ea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
-[  112.068868][  T227] [c0000000086d7f60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
+[   42.870689][  T226] WARNING: CPU: 0 PID: 226 at drivers/net/ethernet/ibm/ibmveth.c:466 ibmveth_remove_buffer_from_pool+0x60/0x20c
+[   42.870728][  T226] Modules linked in:
+[   42.870764][  T226] CPU: 0 UID: 0 PID: 226 Comm: kunit_try_catch Tainted: G        W        N  6.18.62 #1 VOLUNTARY 
+[   42.870795][  T226] Tainted: [W]=WARN, [N]=TEST
+[   42.870815][  T226] Hardware name: IBM pSeries (emulated by qemu) POWER9 (architected) 0x4e1202 0xf000005 of:SLOF,HEAD pSeries
+[   42.870834][  T226] NIP:  c000000001060d50 LR: c0000000010610f8 CTR: 0000000000000000
+[   42.870911][  T226] REGS: c00000000885fb00 TRAP: 0700   Tainted: G        W        N   (6.18.62)
+[   42.870948][  T226] MSR:  8000000002029033 <SF,VEC,EE,ME,IR,DR,RI,LE>  CR: 88000202  XER: 20040000
+[   42.871117][  T226] CFAR: c0000000010610f4 IRQMASK: 0 
+[   42.871117][  T226] GPR00: c0000000010610d4 c00000000885fda0 c000000001c58100 c0000000101be800 
+[   42.871117][  T226] GPR04: 0000000000000100 0000000000000001 c00000000885fc34 0000000000000000 
+[   42.871117][  T226] GPR08: 0000000000000100 0000000000000001 0000000000000100 0000000000000000 
+[   42.871117][  T226] GPR12: 000000003dc10000 c000000003aa0000 c00000000026dbb4 c00000000485e500 
+[   42.871117][  T226] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.871117][  T226] GPR20: 0000000000000000 0000000000000000 0000000000000000 0000000000000000 
+[   42.871117][  T226] GPR24: 0000000000000000 0000000000000000 c000000004677708 0000000000000100 
+[   42.871117][  T226] GPR28: c0000000101be800 0000000000000000 0000000000000100 c0000000101be800 
+[   42.871632][  T226] NIP [c000000001060d50] ibmveth_remove_buffer_from_pool+0x60/0x20c
+[   42.871663][  T226] LR [c0000000010610f8] ibmveth_remove_buffer_from_pool_test+0x1fc/0x4b8
+[   42.871692][  T226] Call Trace:
+[   42.871708][  T226] [c00000000885fda0] [c000000001060e98] ibmveth_remove_buffer_from_pool+0x1a8/0x20c (unreliable)
+[   42.871762][  T226] [c00000000885fdf0] [c0000000010610d4] ibmveth_remove_buffer_from_pool_test+0x1d8/0x4b8
+[   42.871804][  T226] [c00000000885fea0] [c000000000d61628] kunit_try_run_case+0xa4/0x1f4
+[   42.871845][  T226] [c00000000885ff60] [c000000000d659cc] kunit_generic_run_threadfn_adapter+0x3c/0x6c
 ---- end splat lines ----
 NB {"test":"unload","arch":"ppc64le","kmemleak_before":0,"kmemleak_after":0,"splats_at_boot":8,"splats":0}
 NB-END
-[  323.250855][ T1356] reboot: Power down
+[  103.222780][ T1355] reboot: Power down

@@ -196,8 +196,22 @@ int main(int argc, char **argv)
 		perror("BLKDISCARD");
 		return 2;
 	}
-	if (!strcmp(argv[2], "fill"))
+	if (!strcmp(argv[2], "fill")) {
+		/*
+		 * Opt in to fault injection only now: setting make-it-fail before
+		 * exec() lets the injected failures hit exec() itself.
+		 */
+		if (getenv("BLKCHECK_MAKE_IT_FAIL")) {
+			int f = open("/proc/self/make-it-fail", O_WRONLY);
+
+			if (f < 0 || write(f, "1", 1) != 1) {
+				perror("make-it-fail");
+				return 2;
+			}
+			close(f);
+		}
 		return fill_device(&c);
+	}
 
 	ops = atol(argv[2]);
 	c.model = calloc(1, c.size);

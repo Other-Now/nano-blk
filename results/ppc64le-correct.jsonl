@@ -1,8 +1,8 @@
 {"test":"kunit","arch":"ppc64le","pass":7,"fail":0}
-{"test":"blkcheck","arch":"ppc64le","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2058,"reads":1583,"discards":359,"mismatches":0,"io_errors":0,"seconds":17.37},"pages":970}
-{"test":"blkcheck","arch":"ppc64le","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2022,"reads":1586,"discards":392,"mismatches":0,"io_errors":0,"seconds":12.22},"pages":938}
-{"test":"blkcheck","arch":"ppc64le","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":1961,"reads":1641,"discards":398,"mismatches":0,"io_errors":0,"seconds":14.39},"pages":951}
+{"test":"blkcheck","arch":"ppc64le","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2058,"reads":1583,"discards":359,"mismatches":0,"io_errors":0,"seconds":4.47},"pages":970}
+{"test":"blkcheck","arch":"ppc64le","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":2022,"reads":1586,"discards":392,"mismatches":0,"io_errors":0,"seconds":4.77},"pages":938}
+{"test":"blkcheck","arch":"ppc64le","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":1961,"reads":1641,"discards":398,"mismatches":0,"io_errors":0,"seconds":4.31},"pages":951}
 {"test":"discard","arch":"ppc64le","pages_after_32MiB_write":512,"pages_after_discard":0,"reads_zero":true}
 {"test":"amplification","arch":"ppc64le","page_size":65536,"writes_4k":1024,"data_bytes":4194304,"pages":1024,"backing_bytes":67108864}
-{"test":"fault","arch":"ppc64le","rc":0,"fill":{"mode":"fill","blocks":16384,"written":16327,"failed_writes":57,"bad_blocks":0},"driver_alloc_failures":57,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":9.47}}
+{"test":"fault","arch":"ppc64le","rc":0,"fill":{"mode":"fill","blocks":16384,"written":16330,"failed_writes":54,"bad_blocks":0},"driver_alloc_failures":54,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":2.09}}
 {"test":"unload","arch":"ppc64le","kmemleak_before":0,"kmemleak_after":0,"splats_at_boot":8,"splats":0}

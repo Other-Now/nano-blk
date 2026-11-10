@@ -32,6 +32,9 @@ def check(path, r):
         need(r["pages_after_discard"] == 0 and r["reads_zero"], f"{tag} pages_after={r['pages_after_discard']}")
     elif t == "fault":
         f, a = r["fill"], r["after"]
+        if f is None:
+            need(False, f"{tag} blkcheck fill produced no result (rc={r['rc']})")
+            return
         need(f["bad_blocks"] == 0, f"{tag} failed_writes={f['failed_writes']} bad_blocks={f['bad_blocks']}")
         need(r["driver_alloc_failures"] > 0, f"{tag} injection reached the driver ({r['driver_alloc_failures']})")
         need(a["mismatches"] == 0 and a["io_errors"] == 0, f"{tag} device healthy afterwards")
@@ -52,9 +55,15 @@ for path in sys.argv[1:]:
     with open(path) as fh:
         for line in fh:
             line = line.strip()
-            if line:
-                check(path, json.loads(line))
-                n += 1
+            if not line:
+                continue
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:
+                need(False, f"{path}: malformed result line: {line[:120]}")
+                continue
+            check(path, r)
+            n += 1
     if n == 0:
         need(False, f"{path}: no results")
 

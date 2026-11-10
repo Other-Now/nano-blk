@@ -96,8 +96,8 @@ t_fault() {
 	echo N > $F/ignore-gfp-highmem
 	echo Y > $F/task-filter
 	before=$(stat_of alloc_failures)
-	r=$(sh -c 'echo 1 > /proc/self/make-it-fail; exec blkcheck /dev/nblk0 fill 7')
-	rc=$?
+	r=$(BLKCHECK_MAKE_IT_FAIL=1 blkcheck /dev/nblk0 fill 7)
+	rc=$?; r=${r:-null}
 	echo 0 > $F/probability
 	after=$(stat_of alloc_failures)
 	# The device must still work normally afterwards.

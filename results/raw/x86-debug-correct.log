@@ -20,61 +20,61 @@ ok 1 nano_blk_store
 NB {"test":"kunit","arch":"x86_64","pass":7,"fail":0}
 4096
 4096
-NB {"test":"blkcheck","arch":"x86_64","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10028,"reads":8076,"discards":1896,"mismatches":0,"io_errors":0,"seconds":13.09},"pages":13779}
-NB {"test":"blkcheck","arch":"x86_64","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10131,"reads":7947,"discards":1922,"mismatches":0,"io_errors":0,"seconds":11.23},"pages":13675}
-NB {"test":"blkcheck","arch":"x86_64","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":9953,"reads":8006,"discards":2041,"mismatches":0,"io_errors":0,"seconds":9.36},"pages":13620}
-   READ: bw=121MiB/s (127MB/s), 121MiB/s-121MiB/s (127MB/s-127MB/s), io=64.0MiB (67.1MB), run=529-529msec
-  WRITE: bw=117MiB/s (123MB/s), 117MiB/s-117MiB/s (123MB/s-123MB/s), io=64.0MiB (67.1MB), run=547-547msec
+NB {"test":"blkcheck","arch":"x86_64","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10028,"reads":8076,"discards":1896,"mismatches":0,"io_errors":0,"seconds":11.82},"pages":13779}
+NB {"test":"blkcheck","arch":"x86_64","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10131,"reads":7947,"discards":1922,"mismatches":0,"io_errors":0,"seconds":9.80},"pages":13675}
+NB {"test":"blkcheck","arch":"x86_64","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":9953,"reads":8006,"discards":2041,"mismatches":0,"io_errors":0,"seconds":9.98},"pages":13620}
+   READ: bw=120MiB/s (126MB/s), 120MiB/s-120MiB/s (126MB/s-126MB/s), io=64.0MiB (67.1MB), run=534-534msec
+  WRITE: bw=49.9MiB/s (52.3MB/s), 49.9MiB/s-49.9MiB/s (52.3MB/s-52.3MB/s), io=64.0MiB (67.1MB), run=1283-1283msec
 
 Disk stats (read/write):
-  nblk0: ios=1344/1433, sectors=125592/131072, merge=0/0, ticks=18/147, in_queue=165, util=51.02%
+  nblk0: ios=806/1433, sectors=84864/131072, merge=0/0, ticks=10/376, in_queue=387, util=54.45%
 NB {"test":"fio_verify","arch":"x86_64","rc":0,"verify_errors":0}
 NB {"test":"discard","arch":"x86_64","pages_after_32MiB_write":8192,"pages_after_discard":0,"reads_zero":true}
 NB {"test":"amplification","arch":"x86_64","page_size":4096,"writes_4k":1024,"data_bytes":4194304,"pages":1024,"backing_bytes":4194304}
-[   75.225576] I/O error, dev nblk0, sector 40 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.301565] I/O error, dev nblk0, sector 56 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.388966] I/O error, dev nblk0, sector 200 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.488455] I/O error, dev nblk0, sector 552 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.571711] I/O error, dev nblk0, sector 568 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.656498] I/O error, dev nblk0, sector 800 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.731993] I/O error, dev nblk0, sector 976 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.810058] I/O error, dev nblk0, sector 1104 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.894720] I/O error, dev nblk0, sector 1400 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-[   75.967842] I/O error, dev nblk0, sector 1424 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
-NB {"test":"fault","arch":"x86_64","rc":0,"fill":{"mode":"fill","blocks":16384,"written":15553,"failed_writes":831,"bad_blocks":0},"driver_alloc_failures":831,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":1.71}}
+[   69.795822] I/O error, dev nblk0, sector 112 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   69.869704] I/O error, dev nblk0, sector 296 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   69.932116] I/O error, dev nblk0, sector 408 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   69.990322] I/O error, dev nblk0, sector 656 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.045593] I/O error, dev nblk0, sector 720 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.102228] I/O error, dev nblk0, sector 848 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.161441] I/O error, dev nblk0, sector 1152 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.223721] I/O error, dev nblk0, sector 1336 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.286764] I/O error, dev nblk0, sector 1400 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+[   70.346303] I/O error, dev nblk0, sector 1536 op 0x1:(WRITE) flags 0x8800 phys_seg 1 prio class 2
+NB {"test":"fault","arch":"x86_64","rc":0,"fill":{"mode":"fill","blocks":16384,"written":15532,"failed_writes":852,"bad_blocks":0},"driver_alloc_failures":852,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":1.67}}
 ---- splat lines ----
-[    1.469333] WARNING: CPU: 0 PID: 0 at arch/x86/mm/pat/set_memory.c:721 __change_page_attr+0x1774/0x1cb0
-[    1.469355] Modules linked in:
-[    1.469370] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.18.62 #1 PREEMPT(voluntary) 
-[    1.469382] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    1.469390] RIP: 0010:__change_page_attr+0x1774/0x1cb0
-[    1.469401] Code: 83 66 03 01 90 48 8b 44 24 38 49 89 d9 4c 89 e2 48 89 ee 48 c7 c7 80 ae 85 a8 4c 8d 80 ff 0f 00 00 48 89 c1 e8 4d e5 01 00 90 <0f> 0b 90 90 e9 df fc ff ff 65 48 ff 05 d3 6c 26 04 e9 48 fa ff ff
-[    1.469409] RSP: 0000:ffffffffa92077d8 EFLAGS: 00010282
-[    1.469445] RAX: 0000000000000000 RBX: 0000000000001800 RCX: ffffffffa636ca85
-[    1.469452] RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000001
-[    1.469459] RBP: 8000000000000023 R08: 0000000000000000 R09: fffffbfff525d744
-[    1.469467] R10: ffffffffa92eba23 R11: 0000000000000001 R12: 0000000000000023
-[    1.469474] R13: 8000000001800023 R14: dffffc0000000000 R15: ffffffffa9207c10
-[    1.469481] FS:  0000000000000000(0000) GS:ffff88807b27d000(0000) knlGS:0000000000000000
-[    1.469504] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    1.469513] CR2: ffff88802d1ff000 CR3: 0000000015a88001 CR4: 0000000000370ef0
-[    1.469520] Call Trace:
-[    1.469529]  <TASK>
-[    1.469613]  ? __pfx___change_page_attr+0x10/0x10
-[    1.469626]  ? __print_lock_name+0x90/0xe0
-[    1.469745]  ? do_raw_spin_lock+0x128/0x270
-[    1.469757]  ? __pfx_do_raw_spin_lock+0x10/0x10
-[    1.469775]  __change_page_attr_set_clr+0x1ff/0xac0
-[    1.469788]  ? lock_acquire+0x14d/0x2e0
-[    1.469798]  ? __pfx___change_page_attr_set_clr+0x10/0x10
-[    1.469808]  ? __pfx___might_resched+0x10/0x10
-[    1.469817]  ? _vm_unmap_aliases+0x207/0x6b0
-[    1.469850]  ? down_read+0x1b4/0x460
-[    1.469859]  ? x86_64_start_kernel+0x108/0x120
-[    1.469884]  ? __pfx_down_read+0x10/0x10
-[    1.469901]  change_page_attr_set_clr+0x25a/0xd50
-[    1.469917]  ? __pfx_change_page_attr_set_clr+0x10/0x10
+[    0.795736] WARNING: CPU: 0 PID: 0 at arch/x86/mm/pat/set_memory.c:721 __change_page_attr+0x1774/0x1cb0
+[    0.795764] Modules linked in:
+[    0.795783] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.18.62 #1 PREEMPT(voluntary) 
+[    0.795795] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    0.795806] RIP: 0010:__change_page_attr+0x1774/0x1cb0
+[    0.795844] Code: 83 66 03 01 90 48 8b 44 24 38 49 89 d9 4c 89 e2 48 89 ee 48 c7 c7 80 ae a5 95 4c 8d 80 ff 0f 00 00 48 89 c1 e8 4d e5 01 00 90 <0f> 0b 90 90 e9 df fc ff ff 65 48 ff 05 d3 6c 26 04 e9 48 fa ff ff
+[    0.795854] RSP: 0000:ffffffff964077d8 EFLAGS: 00010282
+[    0.795867] RAX: 0000000000000000 RBX: 0000000000001800 RCX: ffffffff9356ca85
+[    0.795874] RDX: 0000000000000000 RSI: 0000000000000004 RDI: 0000000000000001
+[    0.795880] RBP: 8000000000000023 R08: 0000000000000000 R09: fffffbfff2c9d744
+[    0.795886] R10: ffffffff964eba23 R11: 0000000000000001 R12: 0000000000000023
+[    0.795893] R13: 8000000001800023 R14: dffffc0000000000 R15: ffffffff96407c10
+[    0.795899] FS:  0000000000000000(0000) GS:ffff88808e07d000(0000) knlGS:0000000000000000
+[    0.795933] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.795944] CR2: ffff88802d1ff000 CR3: 0000000017e88001 CR4: 0000000000370ef0
+[    0.795956] Call Trace:
+[    0.795965]  <TASK>
+[    0.795999]  ? __pfx___change_page_attr+0x10/0x10
+[    0.796014]  ? __print_lock_name+0x90/0xe0
+[    0.796040]  ? do_raw_spin_lock+0x128/0x270
+[    0.796059]  ? __pfx_do_raw_spin_lock+0x10/0x10
+[    0.796082]  __change_page_attr_set_clr+0x1ff/0xac0
+[    0.796101]  ? lock_acquire+0x14d/0x2e0
+[    0.796114]  ? __pfx___change_page_attr_set_clr+0x10/0x10
+[    0.796129]  ? __pfx___might_resched+0x10/0x10
+[    0.796145]  ? _vm_unmap_aliases+0x207/0x6b0
+[    0.796175]  ? down_read+0x1b4/0x460
+[    0.796189]  ? x86_64_start_kernel+0x108/0x120
+[    0.796204]  ? __pfx_down_read+0x10/0x10
+[    0.796229]  change_page_attr_set_clr+0x25a/0xd50
+[    0.796252]  ? __pfx_change_page_attr_set_clr+0x10/0x10
 ---- end splat lines ----
 NB {"test":"unload","arch":"x86_64","kmemleak_before":0,"kmemleak_after":0,"splats_at_boot":1,"splats":0}
 NB-END
-[   86.828498] reboot: Power down
+[   80.435554] reboot: Power down

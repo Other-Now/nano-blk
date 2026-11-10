@@ -1,9 +1,9 @@
 {"test":"kunit","arch":"x86_64","pass":7,"fail":0}
-{"test":"blkcheck","arch":"x86_64","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10028,"reads":8076,"discards":1896,"mismatches":0,"io_errors":0,"seconds":13.09},"pages":13779}
-{"test":"blkcheck","arch":"x86_64","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10131,"reads":7947,"discards":1922,"mismatches":0,"io_errors":0,"seconds":11.23},"pages":13675}
-{"test":"blkcheck","arch":"x86_64","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":9953,"reads":8006,"discards":2041,"mismatches":0,"io_errors":0,"seconds":9.36},"pages":13620}
+{"test":"blkcheck","arch":"x86_64","seed":1,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10028,"reads":8076,"discards":1896,"mismatches":0,"io_errors":0,"seconds":11.82},"pages":13779}
+{"test":"blkcheck","arch":"x86_64","seed":2,"r":{"dev":"/dev/nblk0","size":67108864,"writes":10131,"reads":7947,"discards":1922,"mismatches":0,"io_errors":0,"seconds":9.80},"pages":13675}
+{"test":"blkcheck","arch":"x86_64","seed":3,"r":{"dev":"/dev/nblk0","size":67108864,"writes":9953,"reads":8006,"discards":2041,"mismatches":0,"io_errors":0,"seconds":9.98},"pages":13620}
 {"test":"fio_verify","arch":"x86_64","rc":0,"verify_errors":0}
 {"test":"discard","arch":"x86_64","pages_after_32MiB_write":8192,"pages_after_discard":0,"reads_zero":true}
 {"test":"amplification","arch":"x86_64","page_size":4096,"writes_4k":1024,"data_bytes":4194304,"pages":1024,"backing_bytes":4194304}
-{"test":"fault","arch":"x86_64","rc":0,"fill":{"mode":"fill","blocks":16384,"written":15553,"failed_writes":831,"bad_blocks":0},"driver_alloc_failures":831,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":1.71}}
+{"test":"fault","arch":"x86_64","rc":0,"fill":{"mode":"fill","blocks":16384,"written":15532,"failed_writes":852,"bad_blocks":0},"driver_alloc_failures":852,"after":{"dev":"/dev/nblk0","size":67108864,"writes":1539,"reads":1169,"discards":292,"mismatches":0,"io_errors":0,"seconds":1.67}}
 {"test":"unload","arch":"x86_64","kmemleak_before":0,"kmemleak_after":0,"splats_at_boot":1,"splats":0}
