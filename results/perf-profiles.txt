@@ -1,0 +1,30 @@
+== nano/first_write ==
+    13.80%  [.] __vdso_clock_gettime
+     6.18%  [k] clear_page_erms
+     3.02%  [k] syscall_return_via_sysret
+     2.41%  [k] entry_SYSRETQ_unsafe_stack
+     2.00%  [.] 0x0000000000022c2f
+     1.90%  [k] nblk_queue_rq
+     1.74%  [k] entry_SYSCALL_64_after_hwframe
+     1.53%  [.] get_io_u
+
+== nano/overwrite ==
+    15.78%  [.] __vdso_clock_gettime
+     5.15%  [k] nblk_queue_rq
+     4.83%  [k] syscall_return_via_sysret
+     4.33%  [k] entry_SYSRETQ_unsafe_stack
+     3.18%  [k] entry_SYSCALL_64_after_hwframe
+     2.57%  [k] entry_SYSCALL_64
+     1.88%  [.] get_io_u
+
+== nano/randread_qd32x4 ==
+    10.89%  [k] nblk_queue_rq
+     9.07%  [k] syscall_return_via_sysret
+     7.36%  [k] entry_SYSRETQ_unsafe_stack
+     6.03%  [k] entry_SYSCALL_64_after_hwframe
+     3.65%  [k] entry_SYSCALL_64
+     3.15%  [k] xas_load
+     2.85%  [.] __vdso_clock_gettime
+     1.69%  [.] get_io_u
+     1.53%  [k] gup_fast_fallback
+

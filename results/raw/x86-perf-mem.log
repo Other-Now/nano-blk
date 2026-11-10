@@ -1,0 +1,12 @@
+c[?7l[2J[0mSeaBIOS (version 1.16.3-debian-1.16.3-2)
+Booting from ROM...
+c[?7l[2Jsuite=mem arch=x86_64 kernel=6.18.62
+NB {"test":"double_cache","device_held_open":0,"driver_mib":256,"memfree_drop_after_direct_write_mib":260,"memfree_drop_after_buffered_read_mib":4,"dev_read_mib_1st_buffered":256,"dev_read_mib_2nd_buffered":256,"memfree_back_after_drop_caches_mib":5,"dev_read_mib_after_drop_caches":256,"dev_read_mib_direct":256,"memfree_drop_direct_read_mib":2}
+NB {"test":"double_cache","device_held_open":1,"driver_mib":256,"memfree_drop_after_direct_write_mib":259,"memfree_drop_after_buffered_read_mib":253,"dev_read_mib_1st_buffered":256,"dev_read_mib_2nd_buffered":0,"memfree_back_after_drop_caches_mib":258,"dev_read_mib_after_drop_caches":256,"dev_read_mib_direct":256,"memfree_drop_direct_read_mib":260}
+NB {"test":"memcg","dev":"nano","mode":"direct","memory_max_mib":32,"written_mib":256,"dd_rc":0,"cgroup_peak_mib":1,"cgroup_oom_kills":0,"memfree_drop_mib":260,"memfree_drop_after_drop_caches_mib":260,"driver_mib":256}
+NB {"test":"memcg","dev":"nano","mode":"buffered","memory_max_mib":32,"written_mib":256,"dd_rc":0,"cgroup_peak_mib":32,"cgroup_oom_kills":0,"memfree_drop_mib":251,"memfree_drop_after_drop_caches_mib":251,"driver_mib":256}
+NB {"test":"memcg","dev":"brd","mode":"direct","memory_max_mib":32,"written_mib":256,"dd_rc":0,"cgroup_peak_mib":1,"cgroup_oom_kills":0,"memfree_drop_mib":260,"memfree_drop_after_drop_caches_mib":260,"driver_mib":-1}
+NB {"test":"memcg","dev":"brd","mode":"buffered","memory_max_mib":32,"written_mib":256,"dd_rc":0,"cgroup_peak_mib":32,"cgroup_oom_kills":0,"memfree_drop_mib":275,"memfree_drop_after_drop_caches_mib":275,"driver_mib":-1}
+NB {"test":"mem_done","splats_at_boot":1,"splats":0}
+NB-END
+[    7.233726] reboot: Power down

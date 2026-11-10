@@ -159,8 +159,8 @@ dev_up() {
 	case $1 in
 	nano)   load_nano size_mb=1024 && echo /dev/nblk0 ;;
 	brd)    insmod /mod/brd.ko rd_nr=1 rd_size=1048576 && echo /dev/ram0 ;;
-	nullb_mem) insmod /mod/null_blk.ko nr_devices=1 gb=1 memory_backed=1 queue_mode=2 irqmode=0 && echo /dev/nullb0 ;;
-	nullb)  insmod /mod/null_blk.ko nr_devices=1 gb=1 memory_backed=0 queue_mode=2 irqmode=0 && echo /dev/nullb0 ;;
+	nullb_mem) { [ -d /sys/module/configfs ] || insmod /mod/configfs.ko; } && insmod /mod/null_blk.ko nr_devices=1 gb=1 memory_backed=1 queue_mode=2 irqmode=0 && echo /dev/nullb0 ;;
+	nullb)  { [ -d /sys/module/configfs ] || insmod /mod/configfs.ko; } && insmod /mod/null_blk.ko nr_devices=1 gb=1 memory_backed=0 queue_mode=2 irqmode=0 && echo /dev/nullb0 ;;
 	esac
 }
 dev_down() {
@@ -198,8 +198,12 @@ suite_perf() {
 
 rd_sectors() { awk '{print $3}' /sys/block/$1/stat; }
 
+# held=1 keeps an extra fd open on the device (like a mounted filesystem):
+# the block device's page cache is flushed and truncated on the *last* close.
 t_double_cache() {
+	held=$1
 	load_nano size_mb=256
+	[ "$held" = 1 ] && exec 7</dev/nblk0
 	echo 3 > /proc/sys/vm/drop_caches; f0=$(memfree_kb)
 	dd if=/dev/zero of=/dev/nblk0 bs=1M count=256 oflag=direct 2>/dev/null
 	f1=$(memfree_kb); s0=$(rd_sectors nblk0)
@@ -212,7 +216,8 @@ t_double_cache() {
 	s3=$(rd_sectors nblk0)
 	dd if=/dev/nblk0 of=/dev/null bs=1M iflag=direct 2>/dev/null	# O_DIRECT
 	f4=$(memfree_kb); s4=$(rd_sectors nblk0)
-	nb "{\"test\":\"double_cache\",\"driver_mib\":$(( $(stat_of bytes) >> 20 )),\"memfree_drop_after_direct_write_mib\":$(( (f0 - f1) / 1024 )),\"memfree_drop_after_buffered_read_mib\":$(( (f1 - f2) / 1024 )),\"dev_read_mib_1st_buffered\":$(( (s1 - s0) / 2048 )),\"dev_read_mib_2nd_buffered\":$(( (s2 - s1) / 2048 )),\"memfree_back_after_drop_caches_mib\":$(( (f3 - f2) / 1024 )),\"dev_read_mib_after_drop_caches\":$(( (s3 - s2) / 2048 )),\"dev_read_mib_direct\":$(( (s4 - s3) / 2048 )),\"memfree_drop_direct_read_mib\":$(( (f3 - f4) / 1024 ))}"
+	[ "$held" = 1 ] && exec 7<&-
+	nb "{\"test\":\"double_cache\",\"device_held_open\":$held,\"driver_mib\":$(( $(stat_of bytes) >> 20 )),\"memfree_drop_after_direct_write_mib\":$(( (f0 - f1) / 1024 )),\"memfree_drop_after_buffered_read_mib\":$(( (f1 - f2) / 1024 )),\"dev_read_mib_1st_buffered\":$(( (s1 - s0) / 2048 )),\"dev_read_mib_2nd_buffered\":$(( (s2 - s1) / 2048 )),\"memfree_back_after_drop_caches_mib\":$(( (f3 - f2) / 1024 )),\"dev_read_mib_after_drop_caches\":$(( (s3 - s2) / 2048 )),\"dev_read_mib_direct\":$(( (s4 - s3) / 2048 )),\"memfree_drop_direct_read_mib\":$(( (f3 - f4) / 1024 ))}"
 	rmmod nano_blk
 }
 
@@ -239,7 +244,8 @@ t_memcg() {	# devkind mode(direct|buffered)
 }
 
 suite_mem() {
-	t_double_cache
+	t_double_cache 0
+	t_double_cache 1
 	for kind in nano brd; do
 		t_memcg $kind direct
 		t_memcg $kind buffered

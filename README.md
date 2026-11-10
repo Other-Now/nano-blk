@@ -2,7 +2,14 @@
 
 A small **RAM-backed blk-mq block driver** for Linux (out-of-tree module, built against **6.18 LTS**). It is tested on **x86_64** and on **IBM Power (ppc64le, QEMU pseries)**.
 
-> **Status: work in progress.** The correctness suites on x86_64 and ppc64le and the memory-exhaustion experiment below have run. Still to do: the fio/perf comparison against `brd` and `null_blk`, and the double-caching and memcg experiments. Anything not in the results below has not been measured yet.
+Every number below comes from a run whose raw console log is in `results/raw/`.
+
+**Headline results:**
+- **Correctness passes on both arches.** KUnit 7/7, model-checked I/O with 0 mismatches, and injected allocation failures that give clean EIO with 0 corrupted blocks. No leaks and no KASAN or lockdep splats.
+- **Filling the device past RAM panicked the kernel** ("System is deadlocked on memory"), and the in-tree brd driver does the same. One GFP flag turns the panic into EIO.
+- **Sparse writes cost 16× more memory on Power** (64 KiB pages).
+- **The memory isn't charged to cgroups:** a writer limited to 32 MiB made the system use 260 MiB.
+- **Throughput:** 589k random-read IOPS at QD32, about 20% ahead of null_blk with memory and about 20% behind the bio-based brd.
 
 ## What it is
 
@@ -78,6 +85,60 @@ The test writes a 1 GiB device inside a 512 MiB guest. The test harness is shiel
 With `__GFP_NORETRY` the allocation fails after one reclaim attempt, and the write fails instead of the machine.
 
 **Remaining limit:** the device keeps what it allocated, and the guest was left with 4 MiB free. A real fix is a memory budget, like zram's `mem_limit`.
+
+## Memory under pressure (x86_64 perf kernel, 1 GiB KVM guest)
+
+Raw log: `results/raw/x86-perf-mem.log`.
+
+### The driver's memory isn't charged to the writer's cgroup
+
+A process in a cgroup with `memory.max=32M` writes 256 MiB to the device:
+
+| Device | Write mode | cgroup `memory.peak` | System MemFree drop | Driver holds |
+|---|---|---|---|---|
+| nano_blk | O_DIRECT | **1 MiB** | **260 MiB** | 256 MiB |
+| nano_blk | buffered + fsync | 32 MiB (the page cache, capped) | 277 MiB | 256 MiB |
+| brd | O_DIRECT | 1 MiB | 260 MiB | n/a |
+| brd | buffered + fsync | 32 MiB | 259 MiB | n/a |
+
+The cgroup limit doesn't contain RAM-disk memory, for either driver:
+- pages are allocated without `__GFP_ACCOUNT`;
+- the allocation can run in a kworker, not in the writer's context, so there's no obvious cgroup to charge.
+
+### Double caching happens only while the device is held open
+
+The test writes 256 MiB with O_DIRECT, then reads the device with buffered I/O twice:
+
+| | buffered read: extra memory | 2nd buffered read from device | after `drop_caches` |
+|---|---|---|---|
+| each `dd` opens and closes the device | +4 MiB | **256 MiB** (no cache kept) | n/a |
+| an fd held open (like a mounted fs) | **+253 MiB** (data now stored twice) | **0 MiB** (page-cache hit) | 258 MiB freed; next read goes to the device again |
+
+I predicted 2× memory in every case and was wrong about the first row. On the **last close**, the block layer syncs the block device's page cache and truncates it (`blkdev_flush_mapping()` → `kill_bdev()`).
+
+## Throughput (x86_64 perf kernel, 4 vCPU KVM guest, fio 3.36 libaio O_DIRECT)
+
+This compares nano_blk with brd (bio-based), null_blk `memory_backed=1` (blk-mq plus a page store, the closest like-for-like), and null_blk without memory (no data copy, the floor):
+- each is a 1 GiB device with scheduler `none`;
+- the table shows medians of 3 runs in kIOPS (min–max in `results/perf-summary.md`);
+- raw fio JSON is in `results/raw/x86-perf-perf.log`.
+
+| Workload | nano_blk | brd | null_blk (mem) | null_blk (no mem) |
+|---|---|---|---|---|
+| 4K sequential write, first touch (QD1) | 105 | 208 | 178 | 300 |
+| 4K sequential overwrite (QD1) | 187 | 269 | 230 | 295 |
+| 4K random read QD1 | 244 | 274 | 227 | 302 |
+| 4K random write QD1 | 217 | 268 | 206 | 297 |
+| 4K random read QD32 × 4 jobs | **589** | 740 | 489 | 704 |
+| 4K random write QD32 × 4 jobs | **575** | 695 | 528 | 751 |
+| 128K sequential read (MiB/s) | 5,113 | 5,385 | 4,644 | 16,145 |
+
+**What I read from it:**
+- **nano_blk vs null_blk (mem):** nano_blk is 20% faster on QD32 reads and about level at QD1. Both pay for blk-mq; nano_blk's store is lock-free (xarray RCU loads, `xa_cmpxchg` inserts).
+- **nano_blk vs brd:** brd is 12–25% faster. brd is bio-based, so it skips request and tag allocation.
+- **First write costs:** allocating and zeroing new pages makes first writes slower than overwrites (105k vs 187k median). `clear_page_erms` is 6% of the first-write profile and absent from the overwrite profile. Profiles are in `results/perf-profiles.txt`; most of the rest is syscall entry/exit and fio's `clock_gettime`.
+
+**Noise warning:** this is a laptop running WSL2 with 2 GB RAM. nano_blk's first-write median was 105k with a min–max of 26–122k in this run, and 162–223k in an earlier run. Treat single numbers with care; the CI runner also runs this suite.
 
 ## Build and run
 

@@ -48,6 +48,27 @@ I wrote a small Linux block driver: a RAM disk on blk-mq, built as an out-of-tre
 - **Test bug I hit:** I seeded with `seed | 1`, so seeds 2 and 3 were *the same run* (2|1 == 3). I noticed because two result lines were identical, and now seed through a multiplier.
 - **The debug kernel's own splat:** one `WARNING` at 0.69 s from `__change_page_attr` (DEBUG_PAGEALLOC). It happens before the module loads, so the gate counts only splats *after* a baseline.
 
+## Story 4: my double-caching prediction was wrong
+
+**Prediction:** buffered reads of a RAM disk would always keep a second copy in the page cache, doubling memory.
+
+**Measured, 256 MiB device:**
+- When each `dd` opens and closes the device, a second buffered read goes back to the device (256 MiB read), and no extra memory is used.
+- With an fd held open, as with a mounted filesystem: +253 MiB, and the second read is a pure cache hit.
+
+**Why:** on the *last close* of a block device, the kernel syncs and truncates its page cache (`blkdev_flush_mapping()` → `kill_bdev()`).
+
+**Lesson to say out loud:** I measured it, the number disagreed with the prediction, so I found the mechanism instead of rationalising.
+
+## Story 5: performance, compared honestly
+
+All numbers are medians in kIOPS on a 4 vCPU KVM guest.
+- **vs null_blk with memory** (blk-mq plus a page store, the closest like-for-like): nano_blk does 589k vs 489k at QD32 random read, 20% faster, and is roughly level at QD1.
+  - Why: nano_blk's store is lock-free (RCU `xa_load`, `xa_cmpxchg`).
+  - Don't overclaim the *why*: I didn't profile null_blk.
+- **vs brd** (bio-based): brd does 740k, so nano_blk is 20% slower. brd skips blk-mq request and tag allocation entirely. That is the honest cost of choosing blk-mq.
+- **First write vs overwrite:** 105k vs 187k, because new pages are allocated and zeroed (`clear_page_erms`, 6% of the first-write profile). The run-to-run spread is large.
+
 ## Kernel concepts to explain crisply
 
 **blk-mq**
@@ -76,7 +97,9 @@ I wrote a small Linux block driver: a RAM disk on blk-mq, built as an out-of-tre
 - `discard_granularity` PAGE_SIZE;
 - `max_hw_discard_sectors` and `max_write_zeroes_sectors`.
 
-**Page size on Power:** pseries kernels use **64 KiB** pages, so the store granularity, physical block size and discard granularity are all 64 KiB there. `[amplification run pending]`
+**Page size on Power:** pseries kernels use **64 KiB** pages, so the store granularity, physical block size and discard granularity are all 64 KiB there.
+- **Measured:** 1,024 sparse 4 KiB writes (one every 64 KiB, 4 MiB of data) use 4 MiB of backing memory on x86_64 and **64 MiB on ppc64le**, 16×.
+- **Consequence:** a discard smaller than 64 KiB frees nothing on Power.
 
 ## Likely questions
 
@@ -89,7 +112,8 @@ I wrote a small Linux block driver: a RAM disk on blk-mq, built as an out-of-tre
   2. Send it as a series with a cover letter. Each patch builds on its own and carries a Signed-off-by (DCO).
   3. Respond to review with v2 and v3, with a changelog below the `---`.
   - Honest answer: a new RAM disk wouldn't be merged, because brd and null_blk exist. The *finding* might be worth a brd patch or a mailing-list question.
-- **"Why is the memory not charged to the writer's cgroup?"** The driver allocates without `__GFP_ACCOUNT`, and the allocation can run in a kworker, not the writer's context. `[memcg experiment pending]`
+- **"Why is the memory not charged to the writer's cgroup?"** The driver allocates without `__GFP_ACCOUNT`, and the allocation can run in a kworker, not the writer's context.
+  - **Measured:** a writer with `memory.max=32M` wrote 256 MiB. Its cgroup's `memory.peak` was 1 MiB with O_DIRECT, while system MemFree fell by 260 MiB. brd gives the same result.
 - **"KASAN vs kmemleak vs lockdep?"**
   - KASAN: out-of-bounds and use-after-free, via shadow memory.
   - kmemleak: unreferenced allocations, found by a scan like a tracing GC.
@@ -100,6 +124,8 @@ I wrote a small Linux block driver: a RAM disk on blk-mq, built as an out-of-tre
 ## What was not done (say it before they ask)
 
 - **Out-of-tree only;** nothing has been sent upstream.
-- **ppc64le runs under QEMU TCG** (an emulated POWER9): it shows correctness only, with no timing claims. `[ppc64le run pending]`
+- **ppc64le runs under QEMU TCG** (an emulated POWER9): it shows correctness only, with no timing claims.
+  - Result: KUnit 7/7; 12k blkcheck ops with 0 mismatches; 57 injected failures giving 57 EIO and 0 bad blocks; 0 leaks.
+  - The 8 boot-time warnings come from in-tree ibmveth KUnit tests, not from nano_blk.
 - **No memory budget** and no cgroup accounting.
-- **perf and fio results:** `[pending]`
+- **perf/fio numbers come from a noisy laptop** (WSL2 with 2 GB RAM, KVM guest). Quote medians as approximate. One run's nano_blk first-write ranged from 26k to 122k IOPS.
