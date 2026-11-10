@@ -2,7 +2,10 @@
 
 A small **RAM-backed blk-mq block driver** for Linux (out-of-tree module, built against **6.18 LTS**). It is tested on **x86_64** and on **IBM Power (ppc64le, QEMU pseries)**.
 
-Every number below comes from a run whose raw console log is in `results/raw/`.
+Every number below comes from a run whose raw console log is in `results/raw/`. GitHub Actions runs everything on each push (run 42855040497 was green):
+- the x86_64 debug suite, the ppc64le suite and the x86_64 perf/memory/OOM suites, each booted in QEMU;
+- `checkpatch.pl --strict`;
+- a compile-only check against the latest stable kernel, 7.3.3.
 
 **Headline results:**
 - **Correctness passes on both arches.** KUnit 7/7, model-checked I/O with 0 mismatches, and injected allocation failures that give clean EIO with 0 corrupted blocks. No leaks and no KASAN or lockdep splats.
