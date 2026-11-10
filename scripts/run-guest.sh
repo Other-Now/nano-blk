@@ -19,7 +19,7 @@ CMD="nb.suite=$SUITE panic=-1 loglevel=4"
 case $FLAVOR in
   ppc64le)
     # TCG: emulated POWER9, so timings from this guest mean nothing.
-    QEMU=($QEMU_PPC -M pseries -cpu POWER9 -smp "$SMP" -m "$MEM" -kernel "$K/vmlinux"
+    QEMU=($QEMU_PPC -M pseries -cpu POWER9 -vga none -smp "$SMP" -m "$MEM" -kernel "$K/vmlinux"
           -append "console=hvc0 $CMD") ;;
   *)
     accel=(-accel tcg)

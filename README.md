@@ -2,7 +2,7 @@
 
 A small **RAM-backed blk-mq block driver** for Linux (out-of-tree module, built against **6.18 LTS**). It is tested on **x86_64** and on **IBM Power (ppc64le, QEMU pseries)**.
 
-> **Status: work in progress.** The x86_64 correctness suite and the memory-exhaustion experiment below have run. Still to do: the ppc64le run, the fio/perf comparison against `brd` and `null_blk`, and the memory-pressure experiments. Anything not in the results below has not been measured yet.
+> **Status: work in progress.** The correctness suites on x86_64 and ppc64le and the memory-exhaustion experiment below have run. Still to do: the fio/perf comparison against `brd` and `null_blk`, and the double-caching and memcg experiments. Anything not in the results below has not been measured yet.
 
 ## What it is
 
@@ -34,6 +34,31 @@ Raw console logs are in `results/raw/`, and each run's result lines are in `resu
 | Discard 32 MiB | 8,192 → 0 pages; range reads back as zeroes |
 | Page-allocation fault injection (`fail_page_alloc`, 5%) over 16,384 block writes | 831 allocations failed → exactly **831 writes returned EIO**; **0 corrupted blocks**; device healthy afterwards (an earlier run, before the `__GFP_NORETRY` change: 765 / 765 / 0) |
 | Unload | kmemleak **0** new leaks; **0** new KASAN/lockdep/RCU splats (one boot-time `__change_page_attr` WARNING happens before the module loads and is excluded) |
+
+## Results: IBM Power (ppc64le pseries, emulated POWER9, TCG)
+
+The same module source, cross-compiled with `powerpc64le-linux-gnu-gcc` and run on a `pseries_le_defconfig` 6.18.62 kernel with lockdep and kmemleak. Raw log: `results/raw/ppc64le-correct.log`.
+
+| Check | Result |
+|---|---|
+| KUnit `nano_blk_store` | **7/7 pass** with 64 KiB pages |
+| blkcheck, 3 seeds × 4,000 ops (fewer: TCG is slow) | **0 mismatches** |
+| Discard 32 MiB | 512 → 0 pages (64 KiB each); reads back as zeroes |
+| Fault injection | 57 allocations failed → 57 EIO, **0 corrupted blocks** |
+| Unload | kmemleak 0; **0** new splats (the 8 at boot come from the in-tree `ibmveth` KUnit tests, which deliberately hit `WARN_ON`; comm `kunit_try_catch`, taint `N`) |
+
+### Finding: 64 KiB pages make sparse writes 16× more expensive on Power
+
+The driver stores data in `PAGE_SIZE` pages, as brd does. The test does one 4 KiB write every 64 KiB, 1,024 writes in total (4 MiB of data):
+
+| Arch | Page size | Pages allocated | Backing memory |
+|---|---|---|---|
+| x86_64 | 4 KiB | 1,024 | **4 MiB** (1×) |
+| ppc64le pseries | 64 KiB | 1,024 | **64 MiB (16×)** |
+
+On Power, `physical_block_size` and `discard_granularity` are also 64 KiB. A discard smaller than 64 KiB only zeroes memory and frees nothing.
+
+The fix would be a store granularity that doesn't depend on the arch, such as 4 KiB chunks carved out of larger pages. That costs more metadata per page and isn't built.
 
 ### Finding: filling the device past RAM panicked the kernel
 
