@@ -1,6 +1,10 @@
 name: ci
 on: [push, pull_request]
 
+defaults:
+  run:
+    shell: bash   # bash -eo pipefail: a failing command before "| tail" fails the step
+
 env:
   KVER: "6.18.62"
   NB_BUILD: /home/runner/nb-build
@@ -81,5 +85,8 @@ jobs:
           curl -fsSL https://cdn.kernel.org/pub/linux/kernel/v${V%%.*}.x/linux-$V.tar.xz | tar -xJ
           make -C linux-$V O=$PWD/kout defconfig >/dev/null
           make -C linux-$V O=$PWD/kout -j$(nproc) modules_prepare >/dev/null
-          make -C linux-$V O=$PWD/kout M=$PWD W=1 KUNIT=1 modules 2>&1 | tee build.log
+          # No vmlinux symbols in a modules_prepare tree, so modpost may only warn.
+          make -C linux-$V O=$PWD/kout M=$PWD W=1 KUNIT=1 KBUILD_MODPOST_WARN=1 modules 2>&1 | tee build.log
+          grep -q "CC \[M\]  .*nano_blk.o" build.log
           ! grep -E "nano_blk(_test)?\.c:[0-9]+:[0-9]+: (warning|error)" build.log
+          echo "nano_blk.c compiles against $V with W=1, no warnings" | tee -a $GITHUB_STEP_SUMMARY
